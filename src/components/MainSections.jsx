@@ -59,6 +59,9 @@ function PlanCard({ badge, name, target, features, cta }) {
       >
         {cta || 'Get Started'}
       </a>
+      <div className="mt-3 text-xs text-neutral-400 flex items-center gap-3">
+        <a href="#compare" className="hover:text-neutral-200">Compare plans →</a>
+      </div>
     </motion.div>
   );
 }
@@ -224,6 +227,9 @@ export default function MainSections() {
           <FeatureItem icon={Shield} title="Smart Contract Rent System" description="Automated and transparent rent, deposits, and penalty management." />
           <FeatureItem icon={Sparkles} title="AI Property Valuation & Forecasting" description="Predict prices with historical data, infrastructure changes, and demand trends." />
           <FeatureItem icon={Leaf} title="IoT Energy Management" description="Monitor and optimize energy usage across all properties with smart systems." />
+        </div>
+        <div className="mt-6 text-sm">
+          <a href="#deep-dive" className="text-emerald-400 hover:underline">Deep-dive features →</a>
         </div>
       </Section>
 

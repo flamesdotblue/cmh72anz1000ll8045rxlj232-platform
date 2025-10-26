@@ -47,7 +47,7 @@ export default function Footer() {
 
         <div className="mt-10 text-xs text-neutral-500 border-t border-neutral-900/70 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>© 2024 A2S - Aesthetics to Spaces. Building the future of property management.</div>
-          <div className="text-neutral-600">Enhanced visuals with 3D and motion</div>
+          <div className="text-neutral-600">Enhanced visuals with 3D, motion, and particles</div>
         </div>
       </div>
     </footer>

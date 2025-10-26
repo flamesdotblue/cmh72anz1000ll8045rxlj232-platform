@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import MainSections from './components/MainSections';
+import RouterView from './components/RouterView';
 import Footer from './components/Footer';
 
 export default function App() {
+  const [hash, setHash] = useState(typeof window !== 'undefined' ? window.location.hash : '');
+
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 font-inter relative overflow-x-hidden">
       {/* Ambient gradient glows */}
@@ -15,10 +23,17 @@ export default function App() {
       <div className="pointer-events-none fixed inset-0 [background-image:linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:3.5rem_3.5rem]" />
 
       <Navbar />
-      <main>
-        <Hero />
-        <MainSections />
-      </main>
+
+      {/* Home sections only on root or section hashes */}
+      {hash === '' || hash === '#' || hash === '#home' || hash.startsWith('#about') || hash.startsWith('#plans') || hash.startsWith('#features') || hash.startsWith('#vendors') || hash.startsWith('#contact') ? (
+        <>
+          <Hero />
+          <RouterView />
+        </>
+      ) : (
+        <RouterView />
+      )}
+
       <Footer />
     </div>
   );

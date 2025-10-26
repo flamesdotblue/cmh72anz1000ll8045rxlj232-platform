@@ -32,7 +32,7 @@ export default function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="relative text-neutral-300 hover:text-white transition"
+              className="group relative text-neutral-300 hover:text-white transition"
             >
               {item.label}
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-emerald-400 to-cyan-400 group-hover:w-full transition-all duration-300" />
