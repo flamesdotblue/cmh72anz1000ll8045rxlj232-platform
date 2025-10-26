@@ -1,22 +1,30 @@
 import React from 'react';
-import { Check, Leaf, Shield, Users, Cog, Sparkles, Factory, Building2, Paintbrush, Briefcase, Hammer } from 'lucide-react';
+import { Check, Leaf, Shield, Users, Cog, Sparkles, Factory, Building2, Paintbrush, Briefcase } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 function Section({ id, eyebrow, title, description, children }) {
   return (
-    <section id={id} className="py-16 sm:py-24 border-t border-neutral-900">
+    <section id={id} className="py-18 sm:py-24 border-t border-neutral-900/70 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {eyebrow && (
-          <div className="text-xs uppercase tracking-wider text-emerald-400/90 mb-3">{eyebrow}</div>
+        {(eyebrow || title) && (
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {eyebrow && (
+              <div className="text-xs uppercase tracking-wider text-emerald-400/90 mb-3">{eyebrow}</div>
+            )}
+            {title && (
+              <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight">{title}</h2>
+            )}
+            {description && (
+              <p className="mt-3 text-neutral-300 max-w-3xl">{description}</p>
+            )}
+          </motion.div>
         )}
-        {title && (
-          <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight">{title}</h2>
-        )}
-        {description && (
-          <p className="mt-3 text-neutral-300 max-w-3xl">{description}</p>
-        )}
-        <div className="mt-10">
-          {children}
-        </div>
+        <div className="mt-10">{children}</div>
       </div>
     </section>
   );
@@ -24,9 +32,16 @@ function Section({ id, eyebrow, title, description, children }) {
 
 function PlanCard({ badge, name, target, features, cta }) {
   return (
-    <div className="relative rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6 sm:p-8 hover:border-neutral-700 transition">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6 }}
+      className="relative rounded-2xl border border-neutral-800 bg-gradient-to-b from-neutral-900/60 to-neutral-900/20 p-6 sm:p-8 hover:border-neutral-700 transition group overflow-hidden"
+    >
+      <div className="absolute -inset-x-20 -top-32 h-40 bg-gradient-to-r from-emerald-400/10 via-cyan-400/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition" />
       {badge && (
-        <div className="absolute -top-3 right-4 text-xs px-2 py-1 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400 text-neutral-900 font-medium">{badge}</div>
+        <div className="absolute -top-3 right-4 text-xs px-2 py-1 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400 text-neutral-900 font-medium shadow-[0_8px_30px_-10px] shadow-emerald-400/40">{badge}</div>
       )}
       <h3 className="text-xl font-semibold text-white">{name}</h3>
       <p className="text-sm text-neutral-400 mt-1">{target}</p>
@@ -38,22 +53,76 @@ function PlanCard({ badge, name, target, features, cta }) {
           </li>
         ))}
       </ul>
-      <a href="#signup" className="mt-8 inline-flex items-center justify-center w-full rounded-md bg-gradient-to-tr from-emerald-400 to-cyan-400 text-neutral-900 font-medium px-4 py-2.5 hover:opacity-90 transition">
+      <a
+        href="#signup"
+        className="mt-8 inline-flex items-center justify-center w-full rounded-md bg-gradient-to-tr from-emerald-400 to-cyan-400 text-neutral-900 font-medium px-4 py-2.5 hover:opacity-90 transition shadow-[0_10px_40px_-10px] shadow-emerald-400/40"
+      >
         {cta || 'Get Started'}
       </a>
-    </div>
+    </motion.div>
   );
 }
 
-function FeatureItem({ title, description, icon: Icon }) {
+function FeatureItem({ title, description, icon: Icon, delay = 0 }) {
   return (
-    <div className="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 hover:border-neutral-700 transition">
-      <div className="h-10 w-10 rounded-lg bg-neutral-800/70 flex items-center justify-center mb-4">
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.6, delay }}
+      className="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 hover:border-neutral-700 transition group"
+    >
+      <div className="h-10 w-10 rounded-lg bg-neutral-800/70 flex items-center justify-center mb-4 group-hover:scale-105 transition">
         <Icon size={18} className="text-emerald-400" />
       </div>
       <h4 className="text-lg font-semibold text-white">{title}</h4>
       <p className="text-neutral-300 mt-2 text-sm leading-relaxed">{description}</p>
-    </div>
+    </motion.div>
+  );
+}
+
+function VendorCard({ icon: Icon, title, tag, commission, benefits, std }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.6 }}
+      className="rounded-2xl border border-neutral-800 bg-gradient-to-b from-neutral-900/60 to-neutral-900/20 p-6 flex flex-col hover:border-neutral-700 transition"
+    >
+      <div className="flex items-center gap-3">
+        <div className="h-10 w-10 rounded-lg bg-neutral-800/70 flex items-center justify-center">
+          <Icon size={18} className="text-emerald-400" />
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold text-white">{title}</h3>
+          <p className="text-xs text-neutral-400">{tag}</p>
+        </div>
+      </div>
+      <div className="mt-4 text-sm text-neutral-300">
+        <div className="font-medium text-neutral-200">Commission</div>
+        <div className="mt-1">{commission}</div>
+      </div>
+      <div className="mt-4">
+        <div className="font-medium text-neutral-200">Benefits</div>
+        <ul className="mt-2 space-y-2 text-sm text-neutral-300">
+          {benefits.map((b, i) => (
+            <li key={i} className="flex gap-2"><Check size={16} className="text-emerald-400" /> <span>{b}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-4">
+        <div className="font-medium text-neutral-200">Standard Benefits</div>
+        <ul className="mt-2 space-y-2 text-sm text-neutral-300">
+          {std.map((b, i) => (
+            <li key={i} className="flex gap-2"><Check size={16} className="text-emerald-400" /> <span>{b}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-6">
+        <a href="#vendors" className="inline-flex items-center justify-center w-full rounded-md bg-neutral-100 text-neutral-900 font-medium px-4 py-2.5 hover:bg-white transition">Join Waitlist</a>
+      </div>
+    </motion.div>
   );
 }
 
@@ -223,7 +292,7 @@ export default function MainSections() {
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#vendors" className="inline-flex items-center justify-center rounded-md bg-gradient-to-tr from-emerald-400 to-cyan-400 text-neutral-900 font-medium px-5 py-3 hover:opacity-90 transition">Join Waitlist</a>
-          <a href="#contact" className="inline-flex items-center justify-center rounded-md border border-neutral-700 text-neutral-200 px-5 py-3 hover:border-neutral-500 hover:text-white transition">Learn More</a>
+          <a href="#contact" className="inline-flex items-center justify-center rounded-md border border-neutral-700/70 text-neutral-200 px-5 py-3 hover:border-neutral-500 hover:text-white transition">Learn More</a>
         </div>
       </Section>
 
@@ -234,69 +303,48 @@ export default function MainSections() {
         description="Have questions or want a demo? We’d love to hear from you."
       >
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+            className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6"
+          >
             <h4 className="text-lg font-semibold text-white">Contact Details</h4>
             <ul className="mt-4 space-y-2 text-neutral-300 text-sm">
               <li>Email: <a href="mailto:ravsil.a2s.co@gmail.com" className="text-emerald-400 hover:underline">ravsil.a2s.co@gmail.com</a></li>
               <li>Phone: <a href="tel:+919703631298" className="text-emerald-400 hover:underline">9703631298</a></li>
             </ul>
-          </div>
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6"
+          >
             <h4 className="text-lg font-semibold text-white">Encounters</h4>
             <ul className="mt-4 space-y-2 text-neutral-300 text-sm">
               <li>Meet us at events</li>
               <li>Schedule a call</li>
               <li>Request a demo</li>
             </ul>
-          </div>
-          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6"
+          >
             <h4 className="text-lg font-semibold text-white">Quick Actions</h4>
             <div className="mt-4 flex flex-wrap gap-3">
               <a href="#plans" className="inline-flex items-center justify-center rounded-md bg-gradient-to-tr from-emerald-400 to-cyan-400 text-neutral-900 font-medium px-4 py-2.5 hover:opacity-90 transition">Request a demo</a>
-              <a href="#vendors" className="inline-flex items-center justify-center rounded-md border border-neutral-700 text-neutral-200 px-4 py-2.5 hover:border-neutral-500 hover:text-white transition">Join Vendor Waitlist</a>
+              <a href="#vendors" className="inline-flex items-center justify-center rounded-md border border-neutral-700/70 text-neutral-200 px-4 py-2.5 hover:border-neutral-500 hover:text-white transition">Join Vendor Waitlist</a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </Section>
-    </div>
-  );
-}
-
-function VendorCard({ icon: Icon, title, tag, commission, benefits, std }) {
-  return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-6 flex flex-col">
-      <div className="flex items-center gap-3">
-        <div className="h-10 w-10 rounded-lg bg-neutral-800/70 flex items-center justify-center">
-          <Icon size={18} className="text-emerald-400" />
-        </div>
-        <div>
-          <h3 className="text-lg font-semibold text-white">{title}</h3>
-          <p className="text-xs text-neutral-400">{tag}</p>
-        </div>
-      </div>
-      <div className="mt-4 text-sm text-neutral-300">
-        <div className="font-medium text-neutral-200">Commission</div>
-        <div className="mt-1">{commission}</div>
-      </div>
-      <div className="mt-4">
-        <div className="font-medium text-neutral-200">Benefits</div>
-        <ul className="mt-2 space-y-2 text-sm text-neutral-300">
-          {benefits.map((b, i) => (
-            <li key={i} className="flex gap-2"><Check size={16} className="text-emerald-400" /> <span>{b}</span></li>
-          ))}
-        </ul>
-      </div>
-      <div className="mt-4">
-        <div className="font-medium text-neutral-200">Standard Benefits</div>
-        <ul className="mt-2 space-y-2 text-sm text-neutral-300">
-          {std.map((b, i) => (
-            <li key={i} className="flex gap-2"><Check size={16} className="text-emerald-400" /> <span>{b}</span></li>
-          ))}
-        </ul>
-      </div>
-      <div className="mt-6">
-        <a href="#vendors" className="inline-flex items-center justify-center w-full rounded-md bg-neutral-100 text-neutral-900 font-medium px-4 py-2.5 hover:bg-white transition">Join Waitlist</a>
-      </div>
     </div>
   );
 }

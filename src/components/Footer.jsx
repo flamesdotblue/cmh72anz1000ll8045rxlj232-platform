@@ -2,12 +2,12 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-900 bg-neutral-950">
+    <footer className="border-t border-neutral-900/70 bg-neutral-950 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-md bg-gradient-to-tr from-emerald-400 to-cyan-400 flex items-center justify-center text-neutral-900 font-bold">A</div>
+              <div className="h-8 w-8 rounded-md bg-gradient-to-tr from-emerald-400 to-cyan-400 flex items-center justify-center text-neutral-900 font-bold shadow-[0_0_30px_-10px] shadow-cyan-400/50">A</div>
               <div>
                 <div className="text-sm text-neutral-300">A2S</div>
                 <div className="text-xs text-neutral-500">Aesthetics to Spaces</div>
@@ -27,7 +27,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-neutral-2 00">Services</h4>
+            <h4 className="text-sm font-semibold text-neutral-200">Services</h4>
             <ul className="mt-4 space-y-2 text-sm text-neutral-400">
               <li>Property Search</li>
               <li>Interior & Vastu</li>
@@ -45,9 +45,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 text-xs text-neutral-500 border-t border-neutral-900 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="mt-10 text-xs text-neutral-500 border-t border-neutral-900/70 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>© 2024 A2S - Aesthetics to Spaces. Building the future of property management.</div>
-          <div className="text-neutral-600">Auto-enhanced with Spline asset</div>
+          <div className="text-neutral-600">Enhanced visuals with 3D and motion</div>
         </div>
       </div>
     </footer>
